@@ -178,20 +178,19 @@
         }
         .envelope-wrapper.open .seal { opacity: 0; transform: translateX(-50%) scale(0.5); }
 
-        /* Iconos pegados físicamente encima del sobre */
+        /* Iconos pegados físicamente encima del sobre (PNG con sombras) */
         .icon-on-env {
             position: absolute;
-            width: 55px;
-            height: 55px;
-            object-fit: cover;
-            border-radius: 4px;
-            border: 2px solid var(--gold-premium);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            width: 70px; /* Tamaño ajustado para visibilidad */
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Sombra para resaltar bordes del PNG */
             z-index: 6; /* Por encima de las solapas */
             transition: opacity 0.5s ease 0.1s, transform 0.5s ease;
         }
-        .icon-on-env.bl { bottom: 12px; left: 12px; }
-        .icon-on-env.tr { top: 12px; right: 12px; }
+        .icon-on-env.bl { bottom: 15px; left: 15px; }
+        .icon-on-env.tr { top: 15px; right: 15px; }
+        
         /* Animación para que desaparezcan junto al sello al abrir el sobre */
         .envelope-wrapper.open .icon-on-env { opacity: 0; transform: scale(0.5); }
 
@@ -292,16 +291,17 @@
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            width: 135%; /* Que sobresalga del marco ovalado */
             z-index: 5;
             pointer-events: none;
             filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
         }
         .arch-top {
-            top: -65px;
+            top: -95px; /* Más arriba */
+            width: 85%; /* Más chico */
         }
         .arch-bottom {
-            bottom: -65px;
+            bottom: -55px; /* Ligeramente más abajo para envolver bien la base */
+            width: 130%; /* Grande para rodear la curva baja */
         }
 
         /* --- MARCOS POLAROID ESMERALDA --- */
@@ -451,13 +451,13 @@
             .itinerary-desc { font-size: 20px; padding-left: 15px; }
             
             /* Ajuste de iconos físicos del sobre para móviles */
-            .icon-on-env { width: 45px; height: 45px; }
+            .icon-on-env { width: 55px; }
             .icon-on-env.bl { bottom: 8px; left: 8px; }
             .icon-on-env.tr { top: 8px; right: 8px; }
 
             /* Ajuste de arcos para pantallas pequeñas */
-            .arch-top { top: -45px; }
-            .arch-bottom { bottom: -45px; }
+            .arch-top { top: -65px; width: 90%; }
+            .arch-bottom { bottom: -40px; }
         }
     </style>
 </head>
@@ -481,14 +481,15 @@
         </div>
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
-            <!-- Iconos pegados físicamente encima del sobre -->
-            <img src="assets/icono2.jpg" class="icon-on-env tr" alt="Sello Decorativo">
+            <!-- Iconos en formato PNG pegados físicamente encima del sobre -->
+            <img src="assets/icono2.png" class="icon-on-env tr" alt="Sello Decorativo Derecho">
             
             <div class="front-flap"></div>
             <div class="seal">D</div>
             <div class="envelope"></div>
             
-            <img src="assets/icono1.jpg" class="icon-on-env bl" alt="Sello Decorativo">
+            <!-- Iconos en formato PNG pegados físicamente encima del sobre -->
+            <img src="assets/icono1.png" class="icon-on-env bl" alt="Sello Decorativo Izquierdo">
         </div>
         
         <div class="hint-text">Tocar para abrir</div>
@@ -528,7 +529,7 @@
             <div class="sparkle-container" id="sp2"></div>
             <div class="vertical-accent left">Celebremos</div>
             
-            <!-- Icono Decorativo Flotante -->
+            <!-- Icono Decorativo Flotante en la invitación -->
             <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-2" style="top: 15%; right: 10%;" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title">Nuestra Cita</div>
@@ -573,7 +574,7 @@
                 <div class="info-data shimmer-text-dark" style="font-size: 34px;">Hiram Alberto Flores</div>
             </div>
             
-            <!-- Icono Decorativo Flotante -->
+            <!-- Icono Decorativo Flotante en la invitación -->
             <img src="assets/icono4.jpg" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 10%; right: 8%;" alt="Deco">
         </section>
 
@@ -581,9 +582,6 @@
         <section class="section-block bg-dark" id="sec-itinerary">
             <div class="sparkle-container" id="sp4"></div>
             <div class="vertical-accent">Momentos</div>
-
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono1.jpg" class="deco-icon anim-element anim-slide-left delay-3" style="top: 8%; left: 8%; border-color: var(--gold-premium);" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title" style="color: var(--gold-premium);">Itinerario</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-light" style="font-size: 42px; margin-bottom: 20px;">Nuestro Día</div>
@@ -674,9 +672,6 @@
             <div class="sparkle-container" id="sp7"></div>
             <div class="vertical-accent left">Gratitud</div>
 
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono2.jpg" class="deco-icon anim-element anim-fade-up delay-4" style="bottom: 15%; left: 8%;" alt="Deco">
-
             <div class="anim-element anim-fade-up delay-1">
                 <div class="info-title">Mesa de Regalos</div>
                 
@@ -713,9 +708,6 @@
         <!-- SECCIÓN 9: RSVP y Deseos (Blanco) -->
         <section class="section-block bg-white" id="sec-rsvp">
             <div class="sparkle-container" id="sp9"></div>
-
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-3" style="top: 25%; right: 10%;" alt="Deco">
             
             <!-- SISTEMA DE PASES (INVYTIA) -->
             <div id="pases-section" style="display: none; width: 100%;">
