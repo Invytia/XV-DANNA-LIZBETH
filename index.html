@@ -178,20 +178,21 @@
         }
         .envelope-wrapper.open .seal { opacity: 0; transform: translateX(-50%) scale(0.5); }
 
-        /* Iconos pegados físicamente encima del sobre (MAS GRANDES) */
+        /* Iconos pegados físicamente encima del sobre (EXACTAMENTE A 135PX) */
         .icon-on-env {
             position: absolute;
-            width: 120px; /* Tamaño muy ampliado */
+            width: 135px; /* Tamaño exacto solicitado */
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); /* Sombra para resaltar */
-            z-index: 20; /* Asegurado por encima de las solapas y cualquier otro elemento */
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4));
+            z-index: 20;
             transition: opacity 0.5s ease 0.1s, transform 0.5s ease;
         }
-        .icon-on-env.bl { bottom: 10px; left: 10px; }
-        .icon-on-env.tr { top: 10px; right: 10px; }
+        /* Ubicaciones exactas en las esquinas */
+        .icon-on-env.bl { bottom: -15px; left: -15px; } /* Esquina inferior izquierda */
+        .icon-on-env.tr { top: -15px; right: -15px; } /* Esquina superior derecha */
         
-        /* Animación para que desaparezcan junto al sello al abrir el sobre */
+        /* Animación para que desaparezcan al abrir el sobre */
         .envelope-wrapper.open .icon-on-env { opacity: 0; transform: scale(0.5); }
 
         .hint-text {
@@ -237,11 +238,18 @@
         }
         .vertical-accent.left { right: auto; left: 20px; }
 
-        /* Iconos Flotantes Repartidos (Con posiciones extremas para no tapar texto) */
+        /* Iconos PNG Flotantes Repartidos (SIN marco, transparentes) */
         .deco-icon {
-            position: absolute; width: 65px; height: 65px; object-fit: cover;
-            border-radius: 50%; border: 2px solid var(--gold-premium);
-            opacity: 0.75; z-index: 10; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            position: absolute; 
+            width: 90px; /* Tamaño adaptado para iconos PNG transparentes */
+            height: auto; 
+            object-fit: contain;
+            border: none; /* Sin bordes */
+            border-radius: 0; /* Sin curvas forzadas */
+            box-shadow: none; /* Quitamos la caja de sombra */
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25)); /* Sombra adaptada al contorno del PNG */
+            opacity: 0.85; 
+            z-index: 10;
         }
 
         /* Tipografía Editorial */
@@ -319,7 +327,7 @@
             border: 2px solid var(--gold-premium);
         }
         .photo-frame img { 
-            width: 100%; height: auto; display: block; /* Muestra foto completa sin cortes */
+            width: 100%; height: auto; display: block;
             filter: contrast(1.05) saturate(1.02); transition: transform 1.2s ease; 
             border-radius: 2px; border: 1px solid rgba(255,255,255,0.2);
         }
@@ -456,9 +464,12 @@
             .itinerary-desc { font-size: 20px; padding-left: 15px; }
             
             /* Ajuste de iconos físicos del sobre para móviles */
-            .icon-on-env { width: 85px; }
-            .icon-on-env.bl { bottom: 8px; left: 8px; }
-            .icon-on-env.tr { top: 8px; right: 8px; }
+            .icon-on-env { width: 100px; } /* Proporción para móvil */
+            .icon-on-env.bl { bottom: -10px; left: -10px; }
+            .icon-on-env.tr { top: -10px; right: -10px; }
+            
+            /* Ajuste iconos PNG */
+            .deco-icon { width: 70px; }
 
             /* Ajuste de arcos para pantallas pequeñas */
             .arch-left { top: -20px; width: 85%; left: -30%; }
@@ -486,14 +497,14 @@
         </div>
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
-            <!-- Iconos en formato PNG pegados físicamente encima del sobre, más grandes -->
+            <!-- Icono 2 (PNG) a 135px en esquina superior derecha del sobre -->
             <img src="assets/icono2.png" class="icon-on-env tr" alt="Sello Decorativo Derecho">
             
             <div class="front-flap"></div>
             <div class="seal">D</div>
             <div class="envelope"></div>
             
-            <!-- Iconos en formato PNG pegados físicamente encima del sobre, más grandes -->
+            <!-- Icono 1 (PNG) a 135px en esquina inferior izquierda del sobre -->
             <img src="assets/icono1.png" class="icon-on-env bl" alt="Sello Decorativo Izquierdo">
         </div>
         
@@ -534,8 +545,8 @@
             <div class="sparkle-container" id="sp2"></div>
             <div class="vertical-accent left">Celebremos</div>
             
-            <!-- Icono Decorativo arrinconado para no tapar texto -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-2" style="top: 20px; right: 20px;" alt="Deco">
+            <!-- Icono PNG Flotante arrinconado para no tapar texto -->
+            <img src="assets/icono3.png" class="deco-icon anim-element anim-zoom delay-2" style="top: 20px; right: 20px;" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title">Nuestra Cita</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-dark" style="font-size: 46px;">3 de Octubre</div>
@@ -561,8 +572,8 @@
         <section class="section-block bg-white" id="sec-parents">
             <div class="sparkle-container" id="sp3"></div>
 
-            <!-- Icono Decorativo arrinconado para no tapar texto -->
-            <img src="assets/icono4.jpg" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 20px; left: 20px;" alt="Deco">
+            <!-- Icono PNG Flotante arrinconado para no tapar texto -->
+            <img src="assets/icono4.png" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 20px; left: 20px;" alt="Deco">
 
             <div class="anim-element anim-fade-up delay-1">
                 <div class="info-title">Con la bendición de Dios y mi madre</div>
@@ -588,8 +599,8 @@
             <div class="sparkle-container" id="sp4"></div>
             <div class="vertical-accent">Momentos</div>
 
-            <!-- Icono Decorativo arrinconado para no tapar texto -->
-            <img src="assets/icono1.png" class="deco-icon anim-element anim-slide-left delay-3" style="top: 20px; left: 20px; border-color: var(--gold-premium);" alt="Deco">
+            <!-- Icono PNG Flotante arrinconado para no tapar texto -->
+            <img src="assets/icono1.png" class="deco-icon anim-element anim-slide-left delay-3" style="top: 20px; left: 20px;" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title" style="color: var(--gold-premium);">Itinerario</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-light" style="font-size: 42px; margin-bottom: 20px;">Nuestro Día</div>
@@ -680,7 +691,7 @@
             <div class="sparkle-container" id="sp7"></div>
             <div class="vertical-accent left">Gratitud</div>
 
-            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <!-- Icono PNG Flotante arrinconado para no tapar texto -->
             <img src="assets/icono2.png" class="deco-icon anim-element anim-fade-up delay-4" style="bottom: 20px; right: 20px;" alt="Deco">
 
             <div class="anim-element anim-fade-up delay-1">
@@ -720,8 +731,8 @@
         <section class="section-block bg-white" id="sec-rsvp">
             <div class="sparkle-container" id="sp9"></div>
             
-            <!-- Icono Decorativo arrinconado para no tapar texto -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-3" style="top: 20px; left: 20px;" alt="Deco">
+            <!-- Icono PNG Flotante arrinconado para no tapar texto -->
+            <img src="assets/icono3.png" class="deco-icon anim-element anim-zoom delay-3" style="top: 20px; left: 20px;" alt="Deco">
 
             <!-- SISTEMA DE PASES (INVYTIA) -->
             <div id="pases-section" style="display: none; width: 100%;">
