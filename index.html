@@ -178,18 +178,18 @@
         }
         .envelope-wrapper.open .seal { opacity: 0; transform: translateX(-50%) scale(0.5); }
 
-        /* Iconos pegados físicamente encima del sobre (PNG con sombras) */
+        /* Iconos pegados físicamente encima del sobre (MAS GRANDES) */
         .icon-on-env {
             position: absolute;
-            width: 70px; /* Tamaño ajustado para visibilidad */
+            width: 120px; /* Tamaño muy ampliado */
             height: auto;
             object-fit: contain;
-            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3)); /* Sombra para resaltar bordes del PNG */
-            z-index: 6; /* Por encima de las solapas */
+            filter: drop-shadow(0 6px 10px rgba(0,0,0,0.4)); /* Sombra para resaltar */
+            z-index: 20; /* Asegurado por encima de las solapas y cualquier otro elemento */
             transition: opacity 0.5s ease 0.1s, transform 0.5s ease;
         }
-        .icon-on-env.bl { bottom: 15px; left: 15px; }
-        .icon-on-env.tr { top: 15px; right: 15px; }
+        .icon-on-env.bl { bottom: 10px; left: 10px; }
+        .icon-on-env.tr { top: 10px; right: 10px; }
         
         /* Animación para que desaparezcan junto al sello al abrir el sobre */
         .envelope-wrapper.open .icon-on-env { opacity: 0; transform: scale(0.5); }
@@ -237,11 +237,11 @@
         }
         .vertical-accent.left { right: auto; left: 20px; }
 
-        /* Iconos Flotantes Repartidos (con z-index bajo para no tapar textos) */
+        /* Iconos Flotantes Repartidos (Con posiciones extremas para no tapar texto) */
         .deco-icon {
             position: absolute; width: 65px; height: 65px; object-fit: cover;
             border-radius: 50%; border: 2px solid var(--gold-premium);
-            opacity: 0.6; z-index: 1; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            opacity: 0.75; z-index: 10; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
         }
 
         /* Tipografía Editorial */
@@ -289,18 +289,23 @@
         /* Arcos Florales en Marco Ovalado */
         .floral-arch {
             position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
             z-index: 5;
             pointer-events: none;
             filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
         }
-        .arch-top {
-            top: -95px; /* Más arriba */
-            width: 85%; /* Más chico */
+        
+        /* ARCO SUPERIOR/IZQUIERDO PEGADO A LA IZQUIERDA */
+        .arch-left {
+            top: -20px;
+            left: -35%;
+            width: 80%; 
         }
+        
+        /* ARCO INFERIOR */
         .arch-bottom {
-            bottom: -55px; /* Ligeramente más abajo para envolver bien la base */
+            bottom: -55px; 
+            left: 50%;
+            transform: translateX(-50%);
             width: 130%; /* Grande para rodear la curva baja */
         }
 
@@ -451,13 +456,13 @@
             .itinerary-desc { font-size: 20px; padding-left: 15px; }
             
             /* Ajuste de iconos físicos del sobre para móviles */
-            .icon-on-env { width: 55px; }
+            .icon-on-env { width: 85px; }
             .icon-on-env.bl { bottom: 8px; left: 8px; }
             .icon-on-env.tr { top: 8px; right: 8px; }
 
             /* Ajuste de arcos para pantallas pequeñas */
-            .arch-top { top: -65px; width: 90%; }
-            .arch-bottom { bottom: -40px; }
+            .arch-left { top: -20px; width: 85%; left: -30%; }
+            .arch-bottom { bottom: -45px; }
         }
     </style>
 </head>
@@ -481,14 +486,14 @@
         </div>
 
         <div class="envelope-wrapper" onclick="openEnvelope()">
-            <!-- Iconos en formato PNG pegados físicamente encima del sobre -->
+            <!-- Iconos en formato PNG pegados físicamente encima del sobre, más grandes -->
             <img src="assets/icono2.png" class="icon-on-env tr" alt="Sello Decorativo Derecho">
             
             <div class="front-flap"></div>
             <div class="seal">D</div>
             <div class="envelope"></div>
             
-            <!-- Iconos en formato PNG pegados físicamente encima del sobre -->
+            <!-- Iconos en formato PNG pegados físicamente encima del sobre, más grandes -->
             <img src="assets/icono1.png" class="icon-on-env bl" alt="Sello Decorativo Izquierdo">
         </div>
         
@@ -512,9 +517,9 @@
                 </p>
             </div>
 
-            <!-- FOTO 1: MARCO OVALADO CON ARCOS FLORALES REALES -->
+            <!-- FOTO 1: MARCO OVALADO CON ARCO PEGADO A LA IZQUIERDA -->
             <div class="oval-container anim-element anim-fade-up delay-3">
-                <img src="assets/arco.png" class="floral-arch arch-top" alt="Arco Floral Superior">
+                <img src="assets/arco.png" class="floral-arch arch-left" alt="Arco Floral Izquierdo">
                 
                 <div class="oval-border">
                     <img src="assets/1.jpg" alt="Danna Lizbeth" onerror="this.style.display='none'">
@@ -529,8 +534,8 @@
             <div class="sparkle-container" id="sp2"></div>
             <div class="vertical-accent left">Celebremos</div>
             
-            <!-- Icono Decorativo Flotante en la invitación -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-2" style="top: 15%; right: 10%;" alt="Deco">
+            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-2" style="top: 20px; right: 20px;" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title">Nuestra Cita</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-dark" style="font-size: 46px;">3 de Octubre</div>
@@ -556,6 +561,9 @@
         <section class="section-block bg-white" id="sec-parents">
             <div class="sparkle-container" id="sp3"></div>
 
+            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <img src="assets/icono4.jpg" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 20px; left: 20px;" alt="Deco">
+
             <div class="anim-element anim-fade-up delay-1">
                 <div class="info-title">Con la bendición de Dios y mi madre</div>
                 <div class="info-data" style="margin-top: 15px;">Elsa Méndez</div>
@@ -573,15 +581,15 @@
                 <div class="info-title">Mi chambelán de honor</div>
                 <div class="info-data shimmer-text-dark" style="font-size: 34px;">Hiram Alberto Flores</div>
             </div>
-            
-            <!-- Icono Decorativo Flotante en la invitación -->
-            <img src="assets/icono4.jpg" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 10%; right: 8%;" alt="Deco">
         </section>
 
         <!-- SECCIÓN 4: Itinerario (Verde Oscuro) -->
         <section class="section-block bg-dark" id="sec-itinerary">
             <div class="sparkle-container" id="sp4"></div>
             <div class="vertical-accent">Momentos</div>
+
+            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <img src="assets/icono1.png" class="deco-icon anim-element anim-slide-left delay-3" style="top: 20px; left: 20px; border-color: var(--gold-premium);" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title" style="color: var(--gold-premium);">Itinerario</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-light" style="font-size: 42px; margin-bottom: 20px;">Nuestro Día</div>
@@ -672,6 +680,9 @@
             <div class="sparkle-container" id="sp7"></div>
             <div class="vertical-accent left">Gratitud</div>
 
+            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <img src="assets/icono2.png" class="deco-icon anim-element anim-fade-up delay-4" style="bottom: 20px; right: 20px;" alt="Deco">
+
             <div class="anim-element anim-fade-up delay-1">
                 <div class="info-title">Mesa de Regalos</div>
                 
@@ -709,6 +720,9 @@
         <section class="section-block bg-white" id="sec-rsvp">
             <div class="sparkle-container" id="sp9"></div>
             
+            <!-- Icono Decorativo arrinconado para no tapar texto -->
+            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-3" style="top: 20px; left: 20px;" alt="Deco">
+
             <!-- SISTEMA DE PASES (INVYTIA) -->
             <div id="pases-section" style="display: none; width: 100%;">
                 <div class="anim-element anim-fade-up delay-1 info-title" style="margin-top: 20px;">Acceso al Evento</div>
