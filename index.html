@@ -44,7 +44,11 @@
             border-right: 14px solid var(--emerald-premium);
             box-shadow: inset 2px 0 0 var(--gold-premium), inset -2px 0 0 var(--gold-premium);
             min-height: 100vh;
+            display: none; width: 100%; flex-direction: column; align-items: center;
+            opacity: 0; animation: fadeInMain 2s forwards 0.3s;
         }
+        body.content-active #main-invitation { display: flex; }
+        @keyframes fadeInMain { to { opacity: 1; } }
 
         /* --- EFECTOS DE DESTELLOS FLOTANTES --- */
         .sparkle-container {
@@ -118,18 +122,21 @@
         }
         #envelope-screen.fade-out { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* Iconos decorativos del sobre */
+        /* Iconos distribuidos en las 4 esquinas extremas del sobre para no tapar textos */
         .env-corner-icon {
             position: absolute;
             width: 80px;
+            height: 80px;
             border-radius: 8px;
             border: 2px solid var(--gold-premium);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
             z-index: 15;
             object-fit: cover;
         }
-        .env-icon-bl { bottom: 25px; left: 25px; }
-        .env-icon-tr { top: 25px; right: 25px; }
+        .env-icon-tl { top: 30px; left: 30px; }      /* Icono 3 - Arriba Izquierda */
+        .env-icon-tr { top: 30px; right: 30px; }     /* Icono 2 - Arriba Derecha */
+        .env-icon-bl { bottom: 30px; left: 30px; }   /* Icono 1 - Abajo Izquierda */
+        .env-icon-br { bottom: 30px; right: 30px; }  /* Icono 4 - Abajo Derecha */
 
         .envelope-text-container {
             text-align: center; margin-bottom: 50px;
@@ -196,14 +203,6 @@
         @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; } 100% { opacity: 0.4; } }
         @keyframes floatText { 0% { transform: translateY(0); } 50% { transform: translateY(-5px); } 100% { transform: translateY(0); } }
 
-        /* --- CONTENIDO PRINCIPAL --- */
-        #main-invitation {
-            display: none; width: 100%; flex-direction: column; align-items: center;
-            opacity: 0; animation: fadeInMain 2s forwards 0.3s;
-        }
-        body.content-active #main-invitation { display: flex; }
-        @keyframes fadeInMain { to { opacity: 1; } }
-
         /* Clases de Animación On-Scroll */
         .anim-element { opacity: 0; transition: all 1.2s var(--transition-smooth); position: relative; z-index: 2; }
         .anim-fade-up { transform: translateY(50px); }
@@ -238,13 +237,6 @@
         }
         .vertical-accent.left { right: auto; left: 20px; }
 
-        /* Iconos Flotantes Repartidos */
-        .deco-icon {
-            position: absolute; width: 65px; height: 65px; object-fit: cover;
-            border-radius: 50%; border: 2px solid var(--gold-premium);
-            opacity: 0.7; z-index: 1; box-shadow: 0 5px 15px rgba(0,0,0,0.15);
-        }
-
         /* Tipografía Editorial */
         .tag-line {
             font-family: 'Cinzel', serif; font-size: 13px; letter-spacing: 5px;
@@ -269,9 +261,9 @@
         }
         .bg-dark .body-serif { color: #D1D5DB; }
 
-        /* --- MARCO OVALADO (FOTO 1) CON FLORITURAS Y FLORES --- */
+        /* --- MARCO OVALADO (FOTO 1) --- */
         .oval-container {
-            position: relative; width: 100%; max-width: 350px; margin: 60px auto 40px auto; z-index: 4;
+            position: relative; width: 100%; max-width: 350px; margin: 80px auto 60px auto; z-index: 4;
         }
         .oval-border {
             border-radius: 160px; /* Óvalo suave */
@@ -286,20 +278,22 @@
             width: 100%; display: block; border-radius: 150px;
             border: 2px solid var(--gold-premium);
         }
-        /* Florituras Doradas */
-        .flourish-text {
-            position: absolute; font-family: 'Cinzel', serif; font-size: 30px; 
-            color: var(--gold-premium); left: 50%; transform: translateX(-50%);
-            z-index: 4; white-space: nowrap; text-shadow: 0 2px 4px rgba(0,0,0,0.5);
-            font-weight: bold; letter-spacing: 2px;
+        
+        /* Arcos Florales en Marco Ovalado */
+        .floral-arch {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 135%; /* Que sobresalga del marco ovalado */
+            z-index: 5;
+            pointer-events: none;
+            filter: drop-shadow(0 8px 15px rgba(0,0,0,0.25));
         }
-        .flourish-top { top: -40px; }
-        .flourish-bottom { bottom: -40px; }
-        /* Flores Esmeraldas */
-        .emerald-flower {
-            color: var(--emerald-accent); font-size: 38px; 
-            text-shadow: 0 0 12px var(--gold-premium); vertical-align: middle;
-            margin: 0 8px;
+        .arch-top {
+            top: -65px;
+        }
+        .arch-bottom {
+            bottom: -65px;
         }
 
         /* --- MARCOS POLAROID ESMERALDA (Para que se vea la foto completa) --- */
@@ -312,7 +306,7 @@
             border: 2px solid var(--gold-premium);
         }
         .photo-frame img { 
-            width: 100%; height: auto; display: block; /* Muestra foto completa */
+            width: 100%; height: auto; display: block; /* Muestra foto completa sin cortes */
             filter: contrast(1.05) saturate(1.02); transition: transform 1.2s ease; 
             border-radius: 2px; border: 1px solid rgba(255,255,255,0.2);
         }
@@ -447,9 +441,17 @@
             .map-box { height: 250px; }
             .itinerary-time { min-width: 80px; font-size: 16px; padding-right: 15px; }
             .itinerary-desc { font-size: 20px; padding-left: 15px; }
-            .env-corner-icon { width: 60px; }
-            .env-icon-bl { bottom: 15px; left: 15px; }
+            
+            /* Ajuste de iconos del sobre para móviles */
+            .env-corner-icon { width: 55px; height: 55px; }
+            .env-icon-tl { top: 15px; left: 15px; }
             .env-icon-tr { top: 15px; right: 15px; }
+            .env-icon-bl { bottom: 15px; left: 15px; }
+            .env-icon-br { bottom: 15px; right: 15px; }
+
+            /* Ajuste de arcos para pantallas pequeñas */
+            .arch-top { top: -45px; }
+            .arch-bottom { bottom: -45px; }
         }
     </style>
 </head>
@@ -467,9 +469,11 @@
     <!-- PANTALLA INICIAL DEL SOBRE -->
     <div id="envelope-screen">
         
-        <!-- Iconos en esquinas del sobre -->
-        <img src="assets/icono1.jpg" class="env-corner-icon env-icon-bl" alt="Icono Decorativo">
-        <img src="assets/icono2.jpg" class="env-corner-icon env-icon-tr" alt="Icono Decorativo">
+        <!-- LOS 4 ICONOS ALOJADOS EN LAS ESQUINAS DEL SOBRE -->
+        <img src="assets/icono3.jpg" class="env-corner-icon env-icon-tl" alt="Decoración Esquina">
+        <img src="assets/icono2.jpg" class="env-corner-icon env-icon-tr" alt="Decoración Esquina">
+        <img src="assets/icono1.jpg" class="env-corner-icon env-icon-bl" alt="Decoración Esquina">
+        <img src="assets/icono4.jpg" class="env-corner-icon env-icon-br" alt="Decoración Esquina">
 
         <div class="envelope-text-container">
             <div class="env-tag">Mis XV Años</div>
@@ -502,15 +506,15 @@
                 </p>
             </div>
 
-            <!-- FOTO 1: MARCO OVALADO, FLORITURAS DORADAS Y FLORES ESMERALDAS -->
+            <!-- FOTO 1: MARCO OVALADO CON ARCOS FLORALES REALES -->
             <div class="oval-container anim-element anim-fade-up delay-3">
-                <div class="flourish-text flourish-top">~ <span class="emerald-flower">✿</span> ~</div>
+                <img src="assets/arco.png" class="floral-arch arch-top" alt="Arco Floral Superior">
                 
                 <div class="oval-border">
                     <img src="assets/1.jpg" alt="Danna Lizbeth" onerror="this.style.display='none'">
                 </div>
                 
-                <div class="flourish-text flourish-bottom">~ <span class="emerald-flower">✿</span> ~</div>
+                <img src="assets/arcobajo.png" class="floral-arch arch-bottom" alt="Arco Floral Inferior">
             </div>
         </section>
 
@@ -518,9 +522,6 @@
         <section class="section-block bg-emerald" id="sec-date">
             <div class="sparkle-container" id="sp2"></div>
             <div class="vertical-accent left">Celebremos</div>
-            
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-2" style="top: 15%; right: 10%;" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title">Nuestra Cita</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-dark" style="font-size: 46px;">3 de Octubre</div>
@@ -563,18 +564,12 @@
                 <div class="info-title">Mi chambelán de honor</div>
                 <div class="info-data shimmer-text-dark" style="font-size: 34px;">Hiram Alberto Flores</div>
             </div>
-            
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono4.jpg" class="deco-icon anim-element anim-slide-right delay-4" style="bottom: 10%; right: 8%;" alt="Deco">
         </section>
 
         <!-- SECCIÓN 4: Itinerario (Verde Oscuro) -->
         <section class="section-block bg-dark" id="sec-itinerary">
             <div class="sparkle-container" id="sp4"></div>
             <div class="vertical-accent">Momentos</div>
-
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono1.jpg" class="deco-icon anim-element anim-slide-left delay-3" style="top: 8%; left: 8%; border-color: var(--gold-premium);" alt="Deco">
 
             <div class="anim-element anim-slide-left delay-1 info-title" style="color: var(--gold-premium);">Itinerario</div>
             <div class="anim-element anim-slide-left delay-2 info-data shimmer-text-light" style="font-size: 42px; margin-bottom: 20px;">Nuestro Día</div>
@@ -665,9 +660,6 @@
             <div class="sparkle-container" id="sp7"></div>
             <div class="vertical-accent left">Gratitud</div>
 
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono2.jpg" class="deco-icon anim-element anim-fade-up delay-4" style="bottom: 15%; left: 8%;" alt="Deco">
-
             <div class="anim-element anim-fade-up delay-1">
                 <div class="info-title">Mesa de Regalos</div>
                 
@@ -704,9 +696,6 @@
         <!-- SECCIÓN 9: RSVP y Deseos (Blanco) -->
         <section class="section-block bg-white" id="sec-rsvp">
             <div class="sparkle-container" id="sp9"></div>
-
-            <!-- Icono Decorativo Flotante -->
-            <img src="assets/icono3.jpg" class="deco-icon anim-element anim-zoom delay-3" style="top: 25%; right: 10%;" alt="Deco">
             
             <!-- SISTEMA DE PASES (INVYTIA) -->
             <div id="pases-section" style="display: none; width: 100%;">
